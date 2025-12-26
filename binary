@@ -211,3 +211,18 @@ function findAtRotateArray(arr , target){
 }
 
 console.log(findAtRotateArray([4, 5, 6, 7, 0, 1, 2] , 1) )
+
+function findMinimum(arr){
+    let low = 0 , right = arr.length - 1
+    while(low < right){
+        const mid = Math.floor((low + right) / 2)
+        if(arr[mid] > arr[right]){
+            low = mid + 1
+        }
+        else{
+            right = mid - 1
+        }
+    }
+    return arr[low]
+}
+console.log(findMinimum([4,5,6,7,0,1,2]))
