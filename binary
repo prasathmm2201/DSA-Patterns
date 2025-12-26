@@ -184,6 +184,12 @@ function findAtRotateArray(arr , target){
 
         if(arr[mid] === target) return mid
 
+
+        if(nums[low] === num[mid] && num[mid] === num[high]){
+            low++
+            high--
+        }
+
         if(arr[low] <= arr[mid]){
             if(arr[low] <= target && target < arr[mid]){
                 high = mid - 1
