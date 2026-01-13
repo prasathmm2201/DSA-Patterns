@@ -613,6 +613,46 @@ const graph1 = {
     D: { B: 4, C: 1 }
 };
 
+function bfsFindShortestPath(graph , start){
+    const queue = [start]
+    const visited = new Set([start])
+    const distance = {}
+    const parent = {}
+
+    distance[start] = 0
+    parent[start] = null
+
+    while(queue.length){
+        const current = queue.shift()
+
+        for(const node of graph[current]){
+            if(!visited.has(node)){
+                distance[node] = distance[current] + 1
+                visited.add(node)
+                parent[node] = current
+                queue.push(node)
+            }
+        }
+    }
+    return {
+        distance ,
+        parent
+    }
+}
+
+const graph = {
+    A:['B' , 'C'],
+    B:['A' , 'D' , 'E'],
+    C:['A' , 'F'],
+    D:['B'],
+    E:['B' , 'F'],
+    F:['C', 'E'] 
+}
+
+
+
+console.log(bfsFindShortestPath(graph , 'A'))
+
 function dijkstra(gr, start) {
     const distances = {}
     const visited = new Set()
