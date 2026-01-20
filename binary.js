@@ -443,3 +443,147 @@ function cowPlacement(stalls , cows){
 }
 
 console.log(cowPlacement([1, 2, 4, 8, 9], 3))
+
+
+
+// split array
+function canWork(arr , mid , k){
+    let currentSum = arr[0]
+    let passes = 1
+
+    for(let i=1; i < arr.length; i++){
+        if(currentSum + arr[i] > mid){ 
+            passes++
+            currentSum = arr[i]
+
+            if(passes > k) return false
+        }
+        else{
+            currentSum+= arr[i]
+        }
+    }
+    return true
+}
+
+
+function  splitArray(arr , k){
+    let low = Math.max(...arr)
+    let high = arr.reduce((res , curr) => res + curr , 0)
+    let ans = high
+
+    while(low <= high){
+        const mid = Math.floor((low + high) / 2)
+        if(canWork(arr , mid , k)){
+            ans = mid
+            high = mid - 1
+        }
+        else{
+            low = mid + 1
+        }
+    }
+    return ans
+}
+
+console.log(splitArray([7,2,5,10,8], 2))
+
+function can(arr, page, s){
+    let p = 1
+    let currentSum = arr[0]
+
+    for(let i=1; i < arr.length; i++){
+        if(currentSum + arr[i] > page){
+           p++
+           currentSum = arr[i]
+
+           if(p > s) return false
+        }
+        else{
+            currentSum+= arr[i]
+        }
+    }
+    return true
+}
+
+
+function allocateBook(arr , student){
+    let low = Math.max(...arr)
+    let high = arr.reduce((result , curr)=> result + curr , 0)
+    let ans = high
+
+    while(low <= high){
+       const mid = Math.floor((low + high) / 2)
+       if(can(arr , mid , student)){
+        ans = mid
+         high = mid - 1
+       }
+       else{
+        low = mid + 1
+       }
+    }
+    return ans
+}
+
+console.log(allocateBook( [12, 34, 67, 90], 2))
+
+
+// sorting required for maximize the minimum
+function isCan(arr , mid , m){
+    let last = arr[0]
+    let count = 1
+
+    for(let i=1; i < arr.length; i++){
+        if(arr[i] - last >= mid){
+            count++
+            last = arr[i]
+        }
+        if(m === count) return true
+    }
+    return false
+}
+
+function mangnetic(arr , m){
+    arr.sort((a , b)=> a -b)
+    let low = 1 , high = arr[arr.length - 1] - arr[0] , ans = high
+
+    while(low <= high){
+      const mid = Math.floor((low + high) / 2)
+      if(isCan(arr , mid , m)){
+        ans = low
+        low = mid + 1
+      }
+      else{
+        high = mid - 1
+      }
+    }
+    return ans
+}
+
+console.log(mangnetic( [5, 4, 3, 2, 1, 1000000000], 2))
+
+
+// hour problem
+function isCan(arr , K , H){
+    let h = 0
+
+    for(let i=0; i < arr.length; i++){
+        h+= Math.ceil(arr[i] / K)
+    }
+    return h <= H
+}
+
+function koko(arr , H){
+    let low = 1 , high = Math.max(...arr), ans = 0
+
+    while(low <= high){
+      const mid = Math.floor((low + high)/ 2)
+      if(isCan(arr , mid , H)){
+        ans = mid
+         high = mid - 1
+      }
+      else{
+        low = mid + 1
+      }
+    }
+    return ans
+}
+console.log(koko( [3, 6, 7, 11] , 8))
