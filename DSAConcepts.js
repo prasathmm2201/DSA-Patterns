@@ -710,7 +710,7 @@ function bellmanFord(gr, start) {
 
     for (var i = 0; i < Object.keys(gr).length - 1; i++) {
         for (var [u, v, w] of edges) {
-            if (distances[u] + w < distances[v]) {
+            if (distance[u] !== Infinity && distances[u] + w < distances[v]) {
                 distances[v] = distances[u] + w
             }
         }
