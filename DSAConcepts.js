@@ -679,6 +679,7 @@ function dijkstra(gr, start) {
 
 
         for (let neighbor in gr[currentNode]) {
+            if (visited.has(ne)) continue
             const sum = distances[currentNode] + gr[currentNode][neighbor]
             if (sum < distances[neighbor]) {
                 distances[neighbor] = sum
