@@ -778,7 +778,7 @@ function findShortestPath(grid, start, end) {
             const g = current.g + 1
             const h = heuristic([nr, nc], end)
             const f = g + h
-            const exisiting = openSet.some((c) => c.pos[0] === nr && c.pos[1] === nc)
+            const exisiting = openSet.find((c) => c.pos[0] === nr && c.pos[1] === nc)
 
             if(!exisiting || g < exisiting.g){
                 if(!exisiting){
