@@ -760,7 +760,7 @@ function findShortestPath(grid, start, end) {
     const cameFrom = {}
 
     while (openSet.length) {
-        openSet.sort((a, b) => a.f - b.f)
+        openSet.sort((a, b) =>  a.f  -  b.f)
         const current = openSet.shift()
         const [r, c] = current.pos
 
@@ -778,12 +778,17 @@ function findShortestPath(grid, start, end) {
             const g = current.g + 1
             const h = heuristic([nr, nc], end)
             const f = g + h
+            const exisiting = openSet.some((c) => c.pos[0] === nr && c.pos[1] === nc)
 
-            if (!openSet.some((c) => c.pos[0] === nr && c.pos[1] === nc)) {
-                openSet.push({ pos: [nr, nc], f, g })
+            if(!exisiting || g < exisiting.g){
+                if(!exisiting){
+                    openSet.push({ pos: [nr, nc], f, g })
                 cameFrom[`${nr},${nc}`] = [r, c]
+                }
+                else{
+                    current.g = g
+                }
             }
-
         }
     }
 
